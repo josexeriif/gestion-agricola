@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tratamientos</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        table { width: 60%; margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid black; }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Tratamientos</h1>
+    
+    <form action="/agregar" method="POST">
+        <input type="text" name="nombre" placeholder="Nombre del tratamiento" required>
+        <input type="date" name="fecha" required>
+        <input type="text" name="responsable" placeholder="Responsable" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h2>Lista de Tratamientos</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Responsable</th>
+            <th>Acciones</th> <!-- Nueva columna -->
+        </tr>
+        {% for tratamiento in tratamientos %}
+        <tr>
+            <td>{{ tratamiento.id }}</td>
+            <td>{{ tratamiento.nombre }}</td>
+            <td>{{ tratamiento.fecha }}</td>
+            <td>{{ tratamiento.responsable }}</td>
+            <td>
+                <a href="{{ url_for('eliminar', id=tratamiento.id) }}" onclick="return confirm('¿Seguro que deseas eliminar este tratamiento?')">
+                    🗑️ Eliminar
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    
+</body>
+</html>
